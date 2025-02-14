@@ -1,0 +1,26 @@
+Suppose there we need to know if two people are friends.
+There are also other problems like island problems
+
+There are mainly two things we need to do
+    1. makefriends(To generate a connection)
+    2. areFriends(To check if two people are friends or not)
+
+In problems like these we can use graphs:
+    Use: Adjacency List or Adjacency Matrix
+    Representation,
+    Adjacency List: makefriends(), areFriends() is O(n)
+    Adjacency Matrix: makefriends() is O(n) and areFriends() is O(1)
+
+The Disjoint Set is a Data Structure that can be used to solve these kind of Data Structures effectively:
+
+There are mainly two operations in this Data Structure
+1. Find(x): Returns a representative of x's set (or social network)
+2. Union(x,y): Combines sets of x and y (same as makefriends())
+
+makefriends(){
+    Union(x,y)
+}
+
+areFriends(){
+    Find(x) == Find(y)
+}
