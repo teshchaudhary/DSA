@@ -15,10 +15,10 @@ def rec(coins, target, n):
 # The time complexity or the kind of problem is coin changes is pseudo polynomial as it depends on s
 # if s is very high the time complexity becomes huge
 def tab(coins, target):
-    n = len(coins)
-    dp = [[0 for _ in range(target+1)] for _ in range(n+1)]
+    numberOfCoins = len(coins)
+    dp = [[0 for _ in range(target+1)] for _ in range(numberOfCoins+1)]
 
-    for i in range(n+1):
+    for i in range(numberOfCoins+1):
         for j in range(target+1):
             if j == 0:
                 dp[i][j] = 1
@@ -30,6 +30,6 @@ def tab(coins, target):
                 if coins[i-1] > j:
                     dp[i][j] = dp[i-1][j]
                 else:
-                    dp[i][j] = sum(dp[i-1][j]+dp[i][j-coins[i-1]])
+                    dp[i][j] = dp[i-1][j]+dp[i][j-coins[i-1]]
     
-    return dp[n][target]
+    return dp[numberOfCoins][target]
