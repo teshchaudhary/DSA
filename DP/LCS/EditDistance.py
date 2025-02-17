@@ -1,11 +1,11 @@
 def rec(s1, s2, n, m):
     # we need to insert sll the character in first string or delete all the characters in second string 
     if n == 0:
-        return 0
+        return m
     
     # we need to insert sll the character in second string or delete all the characters in first string 
     elif m == 0:
-        return 0
+        return n
     
     # if same no need to do anything
     elif s1[n-1] == s2[m-1]:
@@ -30,7 +30,7 @@ def editDistance(s1, s2):
             if i == 0:
                 dp[i][j] = j # why not m? because recursion is already solving for sub problems
             elif j == 0:
-                dp[i][j] = i# why not n? because recursion is already solving for sub problems
+                dp[i][j] = i # why not n? because recursion is already solving for sub problems
             elif s1[i-1] == s2[j-1]:
                 dp[i][j] = dp[i-1][j-1]
             else:

@@ -11,7 +11,7 @@ def lcs_tab(s1, s2, n, m):
             else:
                 curr[j] = max(prev[j], curr[j-1])
         
-        prev = curr
+        prev = curr[:]
 
     return prev[m]
 
