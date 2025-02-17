@@ -44,3 +44,30 @@ def levelOrderTraversal(root):
             
         if node.right != None:
             q.append(root.right)
+
+# Acquires the nodes at each level as well
+
+def levelOrder(root):
+    if not root:
+        return []
+    
+    q = deque()
+    q.append(root)
+    res = []
+    while q:
+        level_size = len(q)
+        level = []
+        
+        for _ in range(level_size):
+            node = q.popleft()
+            level.append(node.data)
+            
+            if node.left:
+                q.append(node.left)
+            
+            if node.right:
+                q.append(node.right)
+                
+        res.append(level)
+        
+    return res
