@@ -21,6 +21,6 @@ def func(arr):
         if arr[i] > tail[-1]:
             tail.append(arr[i])
         else:
-            tail[ceil(arr, arr[i])] = arr[i]
+            tail[ceil(tail, arr[i])] = arr[i]
     
     return len(tail)

@@ -7,11 +7,7 @@ def tab(arr, n):
     
     return dp[:n]
 
-# arr = [5,-2,-3,32,-5, 65]
+arr = [5,-2,-3,32,-5, 65]
 dp = [None for _ in range(100)]
-# n = 6
-# print(tab(arr, n))
-
-arr = [-2, -4]
-n = 2
-print(memo(arr, n))
+n = 6
+print(tab(arr, n))

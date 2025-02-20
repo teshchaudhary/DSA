@@ -58,4 +58,6 @@ def cntInversions(arr, l, r):
     return res
 
 
-print(cntInversions([1,2,3,4], 0, 4))
+a = [5,4,3,2,1]
+print(cntInversions(a, 0, 5))
+print(a)
