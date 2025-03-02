@@ -17,7 +17,7 @@ def swap(n):
     eb >>= 1
     ob <<= 1
 
-    return eb & ob
+    return eb | ob
 
 #            Eg: 23 = 00010111
 #        0xAAAAAAAA = 10101010
