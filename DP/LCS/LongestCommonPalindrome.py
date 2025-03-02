@@ -1,19 +1,32 @@
-def longestPalindromeSubseq(s):
-    n, m = len(s), len(s)
-    sr = s[-1::-1]
-    dp = [[0 for _ in range(n+1)] for _ in range(m+1)]
+def longest_palindromic_subsequence(string):
+    """
+    Finds the longest palindromic subsequence (LPS) in a given string.
 
-    for i in range(n+1):
-        for j in range(m+1):
-            if i == 0 or j == 0:
-                dp[i][j] = 0
-            
-            elif s[i-1] == sr[j-1]:
-                dp[i][j] = 1 + dp[i-1][j-1]
-            
-            else:
-                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+    The problem is solved using the Longest Common Subsequence (LCS) approach
+    by comparing the given string with its reversed version.
 
-    return dp[n][m]
+    Time Complexity: O(n^2)
+    Space Complexity: O(n^2)
 
-print(longestPalindromeSubseq("abb"))
+    :param string: Input string
+    :return: Length of the longest palindromic subsequence
+    """
+    length = len(string)
+    reversed_string = string[::-1]  # Reverse the string
+    dp = [[0] * (length + 1) for _ in range(length + 1)]  # DP table
+
+    # Compute LCS between original and reversed string
+    for i in range(1, length + 1):
+        for j in range(1, length + 1):
+            if string[i - 1] == reversed_string[j - 1]:  # Matching characters
+                dp[i][j] = 1 + dp[i - 1][j - 1]
+            else:  # If characters don't match, take max of left or top cell
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+
+    return dp[length][length]  # The bottom-right cell contains the LPS length
+
+
+# Example usage
+print(longest_palindromic_subsequence("abb"))  # Output: 2
+print(longest_palindromic_subsequence("bbbab"))  # Output: 4
+print(longest_palindromic_subsequence("cbbd"))  # Output: 2

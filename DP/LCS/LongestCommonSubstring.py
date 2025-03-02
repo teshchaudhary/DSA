@@ -1,24 +1,36 @@
-def longestCommonSubstr(s1, s2):
-    n = len(s1)
-    m = len(s2)
+def longest_common_substring(str1, str2):
+    """
+    Finds the length of the longest common substring (LCS) between two strings.
     
-    dp = [[0 for _ in range(m+1)] for _ in range(n+1)]
-    res = 0
-    for i in range(n+1):
-        for j in range(m+1):
-            if i == 0 or j == 0:
-                dp[i][j] = 0
-            
-            elif s1[i-1] == s2[j-1]:
-                dp[i][j] = 1 + dp[i-1][j-1]
+    This function uses dynamic programming to compute the LCS table.
 
-                res = max(res, dp[i][j])
+    Time Complexity: O(n^2)
+    Space Complexity: O(n^2)
+
+    :param str1: First string
+    :param str2: Second string (typically the reversed version of str1 for LPS)
+    :return: Length of the longest common substring
+    """
+    len1, len2 = len(str1), len(str2)
+    
+    # Initialize DP table
+    dp = [[0] * (len2 + 1) for _ in range(len1 + 1)]
+    longest_length = 0  # Stores the maximum length of common substring
+
+    for i in range(1, len1 + 1):
+        for j in range(1, len2 + 1):
+            if str1[i - 1] == str2[j - 1]:  # Matching characters
+                dp[i][j] = 1 + dp[i - 1][j - 1]
+                longest_length = max(longest_length, dp[i][j])
             else:
-                dp[i][j] = 0
+                dp[i][j] = 0  # Reset if characters don't match
 
-    return res
+    return longest_length
 
-s1 = "aacabdkacaa"
-s2 = s1[-1::-1]
-print(s2)
-print(longestCommonSubstr(s1, s2))
+
+# Example usage
+input_string = "aacabdkacaa"
+reversed_string = input_string[::-1]
+
+print("Reversed String:", reversed_string)
+print("Longest Common Substring Length:", longest_common_substring(input_string, reversed_string))

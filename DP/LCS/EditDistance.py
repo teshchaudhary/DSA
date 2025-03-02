@@ -28,9 +28,9 @@ def editDistance(s1, s2):
     for i in range(n+1):
         for j in range(m+1):
             if i == 0:
-                dp[i][j] = j # why not m? because recursion is already solving for sub problems
+             dp[i][j] = j # why not m? because recursion is already solving for sub problems
             elif j == 0:
-                dp[i][j] = i # why not n? because recursion is already solving for sub problems
+                dp[i][j] = i # why not n? becausife recursion is already solving for sub problems
             elif s1[i-1] == s2[j-1]:
                 dp[i][j] = dp[i-1][j-1]
             else:
