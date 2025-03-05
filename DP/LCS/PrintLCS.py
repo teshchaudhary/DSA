@@ -26,7 +26,7 @@ def lcs_tab(s1, s2, n, m):
 
     return res[-1::-1]
 
-print(lcs_tab("abb", "bba", 3, 3))
+print(lcs_tab("abc", "cab", 3, 3))
 
 def print_lcs(X, Y):
     m, n = len(X), len(Y)
