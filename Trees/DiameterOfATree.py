@@ -1,3 +1,12 @@
+# The diameter of a binary tree is the longest path between any two nodes, and that path's length is determined by the sum of the heights of the left and right subtrees at a particular node.
+
+# Key Idea:
+# At each node, the potential diameter is:
+#       left subtree height + right subtree height
+# We recursively compute this at every node and keep track of the maximum value.
+# The height of a node is:
+        # 1 + max(left subtree height + right subtree height)
+      
 # O(n^2)
 def height(root):
     if root is None:

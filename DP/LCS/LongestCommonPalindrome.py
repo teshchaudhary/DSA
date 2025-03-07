@@ -26,6 +26,27 @@ def longest_palindromic_subsequence(string):
     return dp[length][length]  # The bottom-right cell contains the LPS length
 
 
+def space_optimized_longest_palindromic_subsequence(S):
+        # Time Complexity: O(n^2)
+        # Space Complexity: O(n)
+
+        l = len(S)
+        rev = S[::-1]
+        
+        prev = [0 for _ in range(l+1)]
+        curr = [0 for _ in range(l+1)]
+       
+        for i in range(1,l+1):
+            for j in range(1,l+1):
+                if(S[i-1] == rev[j-1]):
+                    curr[j] = 1 + prev[j-1]
+                else:
+                    curr[j] = max(curr[j-1], prev[j])
+                    
+            prev = curr[:]
+            
+        return prev[l]
+
 # Example usage
 print(longest_palindromic_subsequence("abb"))  # Output: 2
 print(longest_palindromic_subsequence("bbbab"))  # Output: 4
