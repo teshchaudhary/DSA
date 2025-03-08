@@ -23,7 +23,23 @@ def longest_palindromic_subsequence(string):
             else:  # If characters don't match, take max of left or top cell
                 dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
 
-    return dp[length][length]  # The bottom-right cell contains the LPS length
+    length_of_lps = dp[length][length]
+    i, j = length, length
+    res = ""
+    
+    while i > 0 and j > 0:
+        if string[i-1] == reversed_string[j-1]:
+            res += string[i-1]
+            i -= 1
+            j -= 1
+        
+        elif dp[i-1][j] > dp[i][j-1]:
+            i -= 1
+        
+        else:
+            j -= 1
+        
+    return res, length_of_lps
 
 
 def space_optimized_longest_palindromic_subsequence(S):
