@@ -1,4 +1,4 @@
-def minimumNumberOfCoins(coins, numberOfCoins, value):
+def minimumNumberOfCoins(coins, value):
     # Step 1: Initialize the DP array
     # dp[i] represents the minimum number of coins required to form the value 'i'
     dp = [float('inf')] * (value + 1)  # Set all values to "infinity" (unreachable initially)
