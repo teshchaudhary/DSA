@@ -1,14 +1,14 @@
+# The intution is BFS always gives the shortest path in unweighted Graph. (Why?)
+# Reason: BFS starts at the source node and first visits all nodes that are directly connected to it (distance 1). It then explores all nodes that are two steps away (distance 2), then three steps, and so on. This level-order traversal means that when a node is first visited, it is reached by the minimum number of edges possible. Also the visited array prevents reprocessing.
+
+
 from collections import deque
-
-INT_MAX = 4294967296
-
 
 def addEdge(adj, u, v):
     adj[v].append(u)
     adj[u].append(v)
 
 # Using a distance array for all the connected nodes from a vertex
-
 
 def BFS(adj, s, dist):
     visited = [False]*len(adj)
@@ -37,7 +37,7 @@ addEdge(adj, 1, 2)
 addEdge(adj, 2, 3)
 addEdge(adj, 0, 2)
 
-dist = [INT_MAX]*v
+dist = [float('inf')]*v
 dist[0] = 0
 
 BFS(adj, 0, dist)

@@ -8,22 +8,22 @@
 # A sparse graph is where the connectivity is less than above
 
 # Undirected Graph
-def addEdge(adj, u, v):
-    adj[u].append(v)
-    adj[v].append(u)
+class Graph:
+    def __init__(self, n):
+        self.l = [[] for _ in range(n)]
 
+    def addNode(self, u, v):
+        self.l[u].append(v)
+        self.l[v].append(u)
+    
+    def printGraph(self):
+        for i in self.l:
+            print(i)
 
-def printGraph(adj):
-    for i in adj:
-        print(i)
-
-
-v = 4  # Total vertices
-l = [[] for i in range(v)]
-
-addEdge(l, 0, 1)
-addEdge(l, 1, 2)
-addEdge(l, 1, 3)
-addEdge(l, 0, 2)
-
-printGraph(l)
+g = Graph(5)
+g.addNode(0,1)
+g.addNode(0,2)
+g.addNode(1,2)
+g.addNode(1,3)
+g.addNode(2,4)
+g.printGraph()

@@ -30,6 +30,7 @@ def BFSdis(adj):
 
 
 v = 8
-adj = [[1, 2], [0, 2], [0, 1], [4], [3], [6, 7], [5], [5]]
+# adj = [[1, 2], [0, 2], [0, 1], [4], [3], [6, 7], [5], [5]]
+adj = [[1, 2], [0, 2], [0, 1], [4], [3], []]
 print("Graphs")
 print("Connected Components", BFSdis(adj))
