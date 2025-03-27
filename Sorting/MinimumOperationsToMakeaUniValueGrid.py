@@ -6,7 +6,7 @@ A uni-value grid is a grid where all the elements of it are equal.
 Return the minimum number of operations to make the grid uni-value. If it is not possible, return -1.
 """
 
-def minOperations(grid):
+def minOperations(grid, x):
     arr = []
     rows, columns = len(grid), len(grid[0])
 
