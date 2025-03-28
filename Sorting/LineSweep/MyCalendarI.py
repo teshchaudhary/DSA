@@ -22,3 +22,11 @@ class MyCalendar:
                 self.check[startTime] -= 1
                 if self.check[startTime] == 0:
                     del self.check[startTime]
+                
+                self.check[endTime] += 1
+                if self.check[endTime] == 0:
+                    del self.check[endTime]
+                
+                return False
+        
+        return True
