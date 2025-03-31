@@ -6,7 +6,6 @@ Note that the partition is done so that after concatenating all the parts in ord
 Return a list of integers representing the size of these parts.
 """
 
-
 class Solution:
     def partitionLabels(self, s: str):
         # Step 1: Store last occurrences of each character
@@ -14,7 +13,8 @@ class Solution:
         for i in range(len(s)):
             last_index[s[i]] = i  # Updating the last occurrence of each character
         
-        res = []
+        res_list = []
+        res_length = 0
         start, end = 0, 0
         
         # Step 2: Traverse through the string to determine partitions
@@ -22,8 +22,9 @@ class Solution:
         while i < len(s):
             end = max(end, last_index[s[i]])  # Expand partition if needed
             if i == end:  # If reached the end of partition (This will be the partition index)
-                res.append(end - start + 1)
+                res_length += 1
+                res_list.append(end - start + 1)
                 start = i + 1  # Start new partition
             i += 1  # Increment index manually
 
-        return res
+        return res_list

@@ -1,3 +1,4 @@
+# Recursion
 def inOrder(root, l):
     if root == None:
         return
@@ -12,3 +13,20 @@ def listMaker(root):
     inOrder(root,l)
     
     return l
+
+# Traversal
+def inOrder(root):
+    stack = []
+    curr = root
+    res = []
+    
+    while curr or stack:
+        while curr:
+            stack.append(curr)
+            curr = curr.left
+        
+        curr = stack.pop()
+        res.append(curr.data)
+        curr = curr.right
+    
+    return res
