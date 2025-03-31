@@ -26,4 +26,8 @@ def lps(s):
             left -= 1
             right += 1
     
-    return res  
+    return res
+
+# Example usage
+input_string = "aacabdkacaa"
+print("Longest Common Substring Length:", lps(input_string))

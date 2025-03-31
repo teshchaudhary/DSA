@@ -1,4 +1,4 @@
-def longest_common_substring(str1, str2):
+def longest_common_substring_0(str1, str2):
     """
     Finds the length of the longest common substring (LCS) between two strings.
     
@@ -27,10 +27,27 @@ def longest_common_substring(str1, str2):
 
     return longest_length
 
+# Space Optimized longest common substring
+def longest_common_substring_1(s1, s2):
+    n, m = len(s1), len(s2)
+    prev = [0 for _ in range(m+1)]
+    curr = [0 for _ in range(m+1)]
+    res = 0
+    for i in range(1, n+1):
+        for j in range(1, m+1):
+            if s1[i-1] == s2[j-1]:
+                curr[j] = 1 + prev[j-1]
+                res = max(res, curr[j])
+            
+            else:
+                curr[j] = 0
+
+        prev = curr[:]
+
+    return res
 
 # Example usage
-input_string = "aacabdkacaa"
-reversed_string = input_string[::-1]
-
-print("Reversed String:", reversed_string)
-print("Longest Common Substring Length:", longest_common_substring(input_string, reversed_string))
+s1 = "abcdef"
+s2 = "zbcdf"
+print("Longest Common Substring Length:", longest_common_substring_0(s1, s2))
+print("Longest Common Substring Length:", longest_common_substring_1(s1, s2))
