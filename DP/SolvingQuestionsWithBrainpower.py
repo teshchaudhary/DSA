@@ -60,3 +60,19 @@ class Solution:
 
         return self.helper(questions, 0, n, dp)
 
+# Tabulation
+class Solution:
+    def mostPoints(self, questions) -> int:
+        n = len(questions)
+        dp = [0] * (n + 1)
+
+        for i in range(n - 1, -1, -1):
+            points, brainpower = questions[i]
+            next_question = i + brainpower + 1 
+
+            take = points + (dp[next_question] if next_question < n else 0)
+            skip = dp[i + 1]
+
+            dp[i] = max(take, skip)
+            
+        return dp[0]
