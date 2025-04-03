@@ -8,38 +8,28 @@ def addEdge(adj, u, v):
     adj[v].append(u)
     adj[u].append(v)
 
-# Using a distance array for all the connected nodes from a vertex
+def BFS(n, edges, s):
+    adj = {i: [] for i in range(n)}
+    for u, v in edges:
+        adj[u].append(v)
+        adj[v].append(u)
 
-def BFS(adj, s, dist):
-    visited = [False]*len(adj)
-    q = deque()
-    visited[s] = True
-    q.append(s)
+    res = [float('inf')] * n  
+    res[s] = 0  
+    q = deque([s])
 
     while q:
-        u = q.popleft()
+        node = q.popleft()
 
-        # Get distance of all connected vertices from a source
-        # v are the vertices diretly reachable from u
-        for v in adj[u]:
-            if visited[v] == False:
-                # Updating the distance
-                dist[v] = dist[u] + 1
-                q.append(v)
-                visited[v] = True
+        for u in adj[node]:
+            if res[u] == float('inf'):
+                res[u] = res[node] + 1
+                q.append(u)
 
+    return res
 
-v = 4
-adj = [[] for i in range(v)]
+n = 5
+edges = [(0, 1), (0, 2), (1, 3), (2, 3), (3, 4)]
+source = 0
 
-addEdge(adj, 0, 1)
-addEdge(adj, 1, 2)
-addEdge(adj, 2, 3)
-addEdge(adj, 0, 2)
-
-dist = [float('inf')]*v
-dist[0] = 0
-
-BFS(adj, 0, dist)
-
-print(*dist)
+print(BFS(n, edges, source))
