@@ -1,64 +1,47 @@
-from collections import defaultdict
-
-class Graph:
-	def __init__(self,vertices):
-
-		self.V = vertices 
-		self.graph = defaultdict(list)
-
-	def addEdge(self,u,v,w):
-		self.graph[u].append((v,w))
-
-	def topologicalSortUtil(self,v,visited,stack):
-
-		visited[v] = True
-
-		if v in self.graph.keys():
-			for node,weight in self.graph[v]:
-				if visited[node] == False:
-					self.topologicalSortUtil(node,visited,stack)
-
-		stack.append(v)
+# Idea: Make use of topological sort
+# if we make use of topological sort, it means we are moving forward only
+# just follow the relaxation of nodes i.e. if dist[u] > dist[node] + d: dist[u] = dist[node] + d
+# use a dist array having all infinite values except source
 
 
-	def shortestPath(self, s):
 
-		visited = [False]*self.V
-		stack =[]
+from typing import List
+from collections import deque
 
-		for i in range(self.V):
-			if visited[i] == False:
-				self.topologicalSortUtil(s,visited,stack)
+class Solution:
 
-		dist = [float("Inf")] * (self.V)
-		dist[s] = 0
-
-		while stack:
-
-			i = stack.pop()
-
-			for node,weight in self.graph[i]:
-				if dist[node] > dist[i] + weight:
-					dist[node] = dist[i] + weight
-
-		for i in range(self.V):
-			print (("%d" %dist[i]) if dist[i] != float("Inf") else "Inf" ,end=" ")
-
-
-g = Graph(6)
-g.addEdge(0, 1, 5)
-g.addEdge(0, 2, 3)
-g.addEdge(1, 3, 6)
-g.addEdge(1, 2, 2)
-g.addEdge(2, 4, 4)
-g.addEdge(2, 5, 2)
-g.addEdge(2, 3, 7)
-g.addEdge(3, 4, -1)
-g.addEdge(4, 5, -2)
-
-s = 1
-
-print ("Following are shortest distances from source %d " % s)
-g.shortestPath(s)
-
-
+    def shortestPath(self, V: int, E: int, edges: List[List[int]]) -> List[int]:
+        dist = [float('inf') for _ in range(V)]
+        dist[0] = 0
+        topological_sort = []
+        adj = {i: [] for i in range(V)}
+        indegrees = {i: 0 for i in range(V)}
+        
+        for u, v, d in edges:
+            adj[u].append((v, d))
+            indegrees[v] += 1
+        
+        q = deque()
+        for node, degree in indegrees.items():
+            if degree == 0:
+                q.append((degree, node))
+        
+        while q:
+            degree, node = q.popleft()
+            topological_sort.append(node)
+            
+            for u, d in adj[node]:
+                indegrees[u] -= 1
+                if indegrees[u] == 0:
+                    q.append((0, u))
+        
+        for node in topological_sort:
+            for u, d in adj[node]:
+                if dist[u] > dist[node] + d:
+                    dist[u] = dist[node] + d
+                    
+        for i in range(V):
+            if dist[i] == float('inf'):
+                 dist[i] = -1
+            
+        return dist

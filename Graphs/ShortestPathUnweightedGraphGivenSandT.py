@@ -14,6 +14,9 @@ def shortest_path(edges, source, target):
         adj[u].append(v)
         adj[v].append(u)
 
+    # The length of the path
+    res = 0
+
     # Queue for BFS
     queue = deque([source])
     # Dictionary to store the parent of each visited node
@@ -27,6 +30,7 @@ def shortest_path(edges, source, target):
         if node == target:
             path = []
             while node is not None:
+                res += 1 # if we need it, just return res - 1
                 path.append(node)
                 node = parent[node]
             return path[::-1]  # Reverse to get source → target order
