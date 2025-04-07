@@ -1,3 +1,6 @@
+# if we talk about just length
+# n + m  - lcs(s1, s2), n = len(s1); m = len(s2)
+
 def shortestCommonSupersequence(str1, str2):
     n = len(str1)
     m = len(str2)
