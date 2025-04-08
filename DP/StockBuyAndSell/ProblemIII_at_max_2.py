@@ -1,3 +1,30 @@
+# Memoization
+def maxProfit(prices):
+    n = len(prices)
+    dp = [[[-1 for _ in range(3)] for _ in range(2)] for _ in range(n)]
+
+    def helper(idx, isBuy, cap):
+        if idx == n or cap == 0:
+            return 0
+
+        if dp[idx][isBuy][cap] != -1:
+            return dp[idx][isBuy][cap]
+
+        if isBuy:
+            buy = -prices[idx] + helper(idx + 1, 0, cap)
+            skip = helper(idx + 1, 1, cap)
+            dp[idx][isBuy][cap] = max(buy, skip)
+        else:
+            sell = prices[idx] + helper(idx + 1, 1, cap - 1)
+            skip = helper(idx + 1, 0, cap)
+            dp[idx][isBuy][cap] = max(sell, skip)
+
+        return dp[idx][isBuy][cap]
+
+    return helper(0, 1, 2)
+
+
+# Tabulation
 def maxProfit(prices):
     n = len(prices)
     dp = [[[0 for _ in range(3)] for _ in range(2)]for _ in range(n+1)]

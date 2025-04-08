@@ -1,4 +1,4 @@
-
+# Kosaraju's Algorithm
 class Solution:
     def dfs(self, adj, node, stack, visited):
         
