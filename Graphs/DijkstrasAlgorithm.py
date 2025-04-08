@@ -3,7 +3,7 @@ Given a weighted, undirected and connected graph where you have given adjacency 
 
 Note: The Graph doesn't contain any negative weight edge.
 """
-
+# Without Weights
 # heap / priority Queue implementation
 import heapq
 class Solution:
@@ -28,7 +28,7 @@ class Solution:
                 
         return dist
 
-
+# With Weights
 # heap / priority Queue implementation
 import heapq
 class Solution:
