@@ -25,3 +25,41 @@ class MinStack:
         return self.stack[-1][1]
     
 # Efficient
+class Solution:
+
+    def __init__(self):
+        self.stack = []
+        self.min = None
+        
+    # Add an element to the top of Stack
+    def push(self, x):
+        if not self.stack:
+            self.stack.append(x)
+            self.min = x
+        elif x >= self.min:
+            self.stack.append(x)
+        else:
+            self.stack.append(2*x-self.min)
+            self.min = x
+            
+
+    # Remove the top element from the Stack
+    def pop(self):
+        if not self.stack:
+            return
+        y = self.stack.pop()
+        if y < self.min:
+            self.min = 2 * self.min - y
+        if not self.stack:
+            self.min = None
+        
+    # Returns top element of Stack
+    def peek(self):
+        if not self.stack:
+            return -1
+        return self.stack[-1] if self.stack[-1] >= self.min else self.min
+
+    # Finds minimum element of Stack
+    def getMin(self):
+        return self.min if self.stack else -1
+        
