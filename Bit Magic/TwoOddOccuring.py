@@ -28,6 +28,7 @@ def OddOccurences(arr):
         xors = xors ^ i
 
     sb = (xors) & ~(xors-1)  # To find rightmost set bit
+    sb = (xors) & -(xors)  # To find rightmost set bit
 
     # The idea to find the rightmost set bit is to divide the numbers into two groups
     # E.g. The odd occuring elements are 5 and 6, XOR of 5 and 6 is 3
