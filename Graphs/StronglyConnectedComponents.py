@@ -1,52 +1,52 @@
 # Kosaraju's Algorithm
+
+# Intuition is if a component is strongly connected, it won't affect the reachability even if we reverse the links
+# the reversal will only affect the non strongly connected componners
+
+# So we do this
+# -> DFS (we get the time of insertion in a stack)
+# -> Reverse Links
+# -> We perform DFS again but this time we take sources as per the order of time of insertion of nodes
+
+from collections import deque
 class Solution:
-    def dfs(self, adj, node, stack, visited):
-        
-        visited[node] = True
-        for i in adj[node]:
-            if not visited[i]:
-                self.dfs(adj, i, stack, visited)
-        
-        stack.append(node)
-    
-    def reverse_dfs(self, adjT, start, visited, component):
-        stack = [start]
-        
-        while stack:
-            node = stack.pop()
-            if not visited[node]:
-                visited[node] = True
-                component.append(node)
-                
-                for neighbour in adjT[node]:
-                    if not visited[neighbour]:
-                        stack.append(neighbour)
-        
-            
+
     def kosaraju(self, adj):
-        v = len(adj)
-        visited = [False for _ in range(v)]
+        def dfs(adj, stack, visited, source):
+            visited[source] = True
+            for u in adj[source]:
+                if not visited[u]:
+                    dfs(adj, stack, visited, u)
+            stack.append(source)
+        
+        def reverse_dfs(adjT, visited, source, component):
+            visited[source] = True
+            component.append(source)
+            for u in adjT[source]:
+                if not visited[u]:
+                    reverse_dfs(adjT, visited, u, component)
+        
+        V = len(adj)
+        visited = [False] * V
         stack = []
-        
-        for i in range(v):
+
+        for i in range(V):
             if not visited[i]:
-                self.dfs(adj, i, stack, visited)
-        
-        adjT = {i: [] for i in range(v)}
-        visited = [False for _ in range(v)]
-        
-        for u in range(len(adj)):
+                dfs(adj, stack, visited, i)
+
+        adjT = [[] for _ in range(V)]
+        for u in range(V):
             for v in adj[u]:
                 adjT[v].append(u)
-        
+
+        visited = [False] * V
         sccs = []
-        
+
         while stack:
-            node = stack.pop()
-            if not visited[node]:
+            s = stack.pop()
+            if not visited[s]:
                 component = []
-                self.reverse_dfs(adjT, node, visited, component)
+                reverse_dfs(adjT, visited, s, component)
                 sccs.append(component)
-                
-                
+
         return len(sccs)
