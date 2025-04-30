@@ -1,41 +1,43 @@
 class Solution:
     def criticalConnections(self, n: int, connections):
-        adj = {i:[] for i in range(n)}
+        # Step 1: Build the adjacency list for the undirected graph
+        graph = {i: [] for i in range(n)}
         for u, v in connections:
-            adj[u].append(v)
-            adj[v].append(u)
+            graph[u].append(v)
+            graph[v].append(u)
 
-        self.timer = 0
-        visited = [False] * n
-        # when did we discover a node
-        disc = [float('inf')] * n
-
-        # lowest discovery time reachable from a node
-        low = [float('inf')] * n
+        # Step 2: Initialize discovery and low-link arrays
+        discovery_time = [-1] * n  # When a node was first visited
+        low_time = [-1] * n        # Lowest discovery time reachable from the node
+        time = [0]                 # Mutable wrapper for global time counter
         bridges = []
 
-        def dfs(u, parent):
-            visited[u] = True
-            disc[u] = low[u] = self.timer
-            self.timer += 1
+        def dfs(current, parent):
+            discovery_time[current] = low_time[current] = time[0]
+            time[0] += 1
 
-            for v in adj[u]:
-                # we don't want to include parent
-                if v == parent:
-                    continue
+            for neighbor in graph[current]:
+                if neighbor == parent:
+                    continue  # Skip the parent node to avoid going backward
 
-                if not visited[v]:
-                    dfs(v, u)
-                    low[u] = min(low[u], low[v])
+                if discovery_time[neighbor] == -1:
+                    # Recurse if the neighbor hasn't been visited
+                    dfs(neighbor, current)
 
-                    if low[v] > disc[u]:
-                        # Store bridge in sorted order (min, max)
-                        bridges.append((min(u, v), max(u, v)))
+                    # Update the low time after visiting the child
+                    low_time[current] = min(low_time[current], low_time[neighbor])
+
+                    # Bridge condition: if the lowest time reachable from neighbor
+                    # is after the discovery time of current, it's a bridge
+                    if low_time[neighbor] > discovery_time[current]:
+                        bridges.append((min(current, neighbor), max(current, neighbor)))
                 else:
-                    low[u] = min(low[u], disc[v])
+                    # Neighbor is visited and not parent => back edge
+                    low_time[current] = min(low_time[current], discovery_time[neighbor])
 
-        for i in range(n):
-            if not visited[i]:
-                dfs(i, -1)
+        # Step 3: Run DFS from every unvisited node (handles disconnected graphs)
+        for node in range(n):
+            if discovery_time[node] == -1:
+                dfs(node, -1)
 
         return bridges
