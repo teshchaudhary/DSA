@@ -1,5 +1,6 @@
 from collections import deque
 
+# BFS
 class Solution:
     def isBipartite(self, graph) -> bool:
         V = len(graph)
@@ -23,4 +24,27 @@ class Solution:
                         elif coloured[u] == coloured[s]:
                                 return False
         
+        return True
+
+# DFS
+class Solution:
+    def isBipartite(self, graph) -> bool:
+        V = len(graph)
+        coloured = [-1 for _ in range(V)]
+
+        def dfs(node, color):
+            coloured[node] = color
+            for neighbor in graph[node]:
+                if coloured[neighbor] == -1:
+                    if not dfs(neighbor, 1 - color):
+                        return False
+                elif coloured[neighbor] == color:
+                    return False
+            return True
+
+        for i in range(V):
+            if coloured[i] == -1:
+                if not dfs(i, 0):
+                    return False
+
         return True
