@@ -7,7 +7,7 @@ def tab(arr):
         for j in range(i):
             # if the curr element > starting point (possible subsequence) -> arr[i] >= arr[j]
             # if the current possible subsequence length > previous possible subsequence ->  dp[j] + 1 > dp[i]
-            if arr[i] >= arr[j] and dp[j] + 1 > dp[i]:
+            if arr[i] > arr[j] and dp[j] + 1 > dp[i]:
                 dp[i] = dp[j]+1
                 prev_indexes[i] = j
     lis_length = max(dp)

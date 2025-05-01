@@ -1,8 +1,4 @@
 def find_ceil_index(subseq, target):
-    """
-    This function finds the index of the smallest element in `subseq`
-    that is greater than or equal to `target`. It uses binary search.
-    """
     start = 0
     end = len(subseq) - 1
 
@@ -17,12 +13,7 @@ def find_ceil_index(subseq, target):
     return end
 
 def longest_increasing_subsequence_length(sequence):
-    """
-    This function finds the length of the longest increasing subsequence (LIS)
-    in the given `sequence` using a dynamic approach with a tail array.
 
-    Time Complexity: O(n log n), where `n` is the length of `sequence`.
-    """
     length = len(sequence)
     if length == 0:
         return 0
